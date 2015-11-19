@@ -8,11 +8,6 @@ var playerHand = [0, 1, 2, 3, 4, 5];
 var computerHand = [0, 1, 2, 3, 4, 5];
 
 
-//======================
-//Currently bugtesting
-
-
-
 
 var lanes = {
 	1: {
@@ -33,17 +28,18 @@ var lanes = {
 };
 
 // playerChoice
-var playerChoice = function(choice) {
-	var choice = playerHand.splice(playerHand.indexOf(choice), (playerHand.indexOf(choice)));
-	console.log(playerHand)
-	return choice;
-}
+// var playerChoice = function(choice) {
+// 	var choice = playerHand.splice(playerHand.indexOf(choice), (playerHand.indexOf(choice)));
+// 	console.log(playerHand)
+// 	return choice;
+// }
 
 //We can make this track who the player is later, and vary the splice command
+//===========
+//The below code is causing 'lanes' to be blank.
 var playerTurn = function (cardChoice, laneChoice) {
-	if lanes[laneChoice]["staging"] = null {
+	if ( lanes[laneChoice]["staging"] === null ) {
 		if ( playerHand.indexOf(cardChoice) >= 0 ) {
-			// console.log(playerHand.indexOf(cardChoice))
 			var choice = playerHand.splice(playerHand.indexOf(cardChoice), 1);
 			console.log(choice);
 			lanes[laneChoice]["player"].push("hidden");
@@ -52,8 +48,6 @@ var playerTurn = function (cardChoice, laneChoice) {
 			// lastCard[laneChoice] = ["player", cardChoice];
 		}
 	} else {
-		//In here you have to move the items out of the staging area
-		//replicate to replace hidden in either player or computer
 		if ( lanes[lanechoice]["player"].indexOf("hidden") >= 0 ) {
 		lanes[laneChoice]["player"].indexOf("hidden") = lanes[laneChoice]["staging"];
 		lanes[laneChoice]["staging"] = cardChoice
@@ -64,7 +58,6 @@ var playerTurn = function (cardChoice, laneChoice) {
 		//then replicate what you have above for the staging being none.
 	}
 }
-
 
 var compTurn = function () {
 	//Pick a random card, play it to the lane where they have the lowest total
@@ -94,7 +87,6 @@ var playGame = function () {
 	}
 	findWinner();
 }
-
 
 var findWinner = function () {
 	//Lane1 section
