@@ -39,3 +39,5 @@
 // Function whatsInLane ()
 //     This will need more functions in it
 // Var leftInHand
+
+//original variant is actually great.
