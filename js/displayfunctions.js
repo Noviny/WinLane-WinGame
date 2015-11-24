@@ -26,6 +26,7 @@ $(document).ready (function () {
 
 	//Weird bug where computer has a whole lot of 0 values?
 var hidReplace = function (lane) {
+	//does not unstage, only frontend?
 	if ( $('.' + lane).find('.hid').length > 0 ) {
 		$('.' + lane).find('.hid').html(lanes[lane]["staging"])
 		$('.' + lane).find('.hid').removeClass('hid')
@@ -62,6 +63,10 @@ var takeOppTurn = function () {
 			$(this).css({color: "green"});
 		}
 	});
+
+$(".opponent").click( function () {
+	takeOppTurn()
+})
 
 //Click on a lane to assign a selected card to it
 //Big bug, clicking a lane moves a dev,

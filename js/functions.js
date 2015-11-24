@@ -54,42 +54,26 @@ var myTurn = function (cardNum, lane) {
 		var oldVal = lanes[lane]["staging"]
 		//Only copes with player is hid, not opponent
 		var oldHid = lanes[lane]["player"].indexOf("hid")
+		if ( lanes[pickLane]["computer"].indexOf("hid") >= 0 ) {
+			var oldHid = lanes[pickLane]["computer"].indexOf("hid")
+		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
+			lanes[pickLane]["computer"][oldHid] = oldVal;
+			lanes[pickLane]["staging"] = pickCard
+			lanes[pickLane]["player"].push("hid")
+		} 
+		else if ( lanes[pickLane]["player"].indexOf("hid") >= 0 ) {
+			var oldHid = lanes[pickLane]["player"].indexOf("hid")
+		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
+			lanes[pickLane]["player"][oldHid] = oldVal;
+			lanes[pickLane]["staging"] = pickCard
+			lanes[pickLane]["player"].push("hid")
+		}
 	}
-
-	if ( lanes[pickLane]["computer"].indexOf("hid") >= 0 ) {
-		var oldHid = lanes[pickLane]["computer"].indexOf("hid")
-	//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
-		lanes[pickLane]["computer"][oldHid] = oldVal;
-		lanes[pickLane]["staging"] = pickCard
-		lanes[pickLane]["player"].push("hid")
-	} 
-	else if ( lanes[pickLane]["player"].indexOf("hid") >= 0 ) {
-		var oldHid = lanes[pickLane]["player"].indexOf("hid")
-	//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
-		lanes[pickLane]["player"][oldHid] = oldVal;
-		lanes[pickLane]["staging"] = pickCard
-		lanes[pickLane]["player"].push("hid")
-	}
-
-
-
-
 	playerHand.splice( playerHand.indexOf(parseInt(cardNum)), 1 );
 }
 
-var calcPlayerLanes = function () {
-	for (var i = 1; i <= 3; i++) {
-		var total = 0;
-		for (var j = 0; j < lanes[i]["player"].length; i++) {
-			total += (parseInt(lanes[i]["player"][j]));
-			console.log(total)
-		};
-	console.log(total)
-	};
-}
-
 //============================
-//Computer random turn
+//Opponent turn function
 //============================
 //Because lanes[var]["player"] was hard-coded,
 //we had to rewrite the whole function
@@ -100,49 +84,65 @@ var forceCompTurn = function (lane, card) {
 	//Staging one less than?
 	var pickLane = parseInt(lane);
 	var pickCard = parseInt(card);
-	console.log("the card to be spliced should be " + computerHand[pickCard]);
 	var oldVal = null;
-		if ( lanes[pickLane]["staging"] === null ) {
+	if ( lanes[pickLane]["staging"] === null ) {
 		lanes[pickLane]["staging"] = computerHand[pickCard]
 		lanes[pickLane]["computer"].push("hid")
 	} else if ( lanes[pickLane]["staging"] != null ) {
-		//replaces hid and stages next num
 		var oldVal = lanes[pickLane]["staging"]
-	//Only copes with computer is hid, not opponent, indexOf should equal 0 otherwise?
-		}
 		if ( lanes[pickLane]["computer"].indexOf("hid") >= 0 ) {
 			var oldHid = lanes[pickLane]["computer"].indexOf("hid")
-		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
 			lanes[pickLane]["computer"][oldHid] = oldVal;
 			lanes[pickLane]["staging"] = computerHand[pickCard]
 			lanes[pickLane]["computer"].push("hid")
 		} 
 		else if ( lanes[pickLane]["player"].indexOf("hid") >= 0 ) {
 			var oldHid = lanes[pickLane]["player"].indexOf("hid")
-		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
 			lanes[pickLane]["player"][oldHid] = oldVal;
 			lanes[pickLane]["staging"] = computerHand[pickCard]
 			lanes[pickLane]["computer"].push("hid")
 		}
-//Correct thing seems to be staging, but splicing the wrong thing
-	computerHand.splice( computerHand[pickCard - 1], 1 );
+	}
+	var spliced = computerHand.splice(pickCard, 1 );
 }
 
 // Possibly just write a choice code that both use?
 // computerChoice
 
 
+// var randomNums = function () {
+// 	for (var i = 0; i < 50; i++) {
+// 		console.log(Math.ceil(Math.random()*computerHand.length) - 1)
+// 	};
+// }
 
 
 
+//========================================
+//Let us determine who wins the game
+
+var unhidAll = function () {
+	for (var i = 1; i <= 3; i++) {
+		var num = lanes[i]["staging"]
+		console.log(num)
+		if ( lanes[i]["player"].indexOf("hid") >= 0 ) {
+			var oldHid = lanes[i]["player"].indexOf("hid")
+			lanes[i]["player"][oldHid] = num
+		} else if ( lanes[i]["computer"].indexOf("hid") >= 0 ) {
+			var oldHid = lanes[i]["computer"].indexOf("hid")
+			lanes[i]["computer"][oldHid] = num
+		}
+	};
+};
+
+var winLane = function (lane) {
+
+}
 
 
-
-
-
-
-
-
+var winGame = function () {
+	unhidAll()
+};
 
 
 
