@@ -2,28 +2,51 @@
 
 //Populates the player hand.
 $(document).ready (function () {
-	for (var i = 0; i < playerHand.length; i++) {
-		var $elem = $("<div><p>"+playerHand[i]+"</p></div>").addClass( "card" );
-		$(".playerhand").append($elem);
-	};
+	var makePlayerHand = function () {
+		for (var i = 0; i < playerHand.length; i++) {
+			var $elem = $("<div><p>"+playerHand[i]+"</p></div>").addClass( "card" );
+			$(".playerhand").append($elem);
+		};
+	}
+
+
+	var makeOpponentHand = function () {
+		for (var i = 0; i < computerHand.length; i++) {
+			var $elem = $("<div><p></p></div>").addClass( "card" );
+			$(".opponenthand").append($elem);
+		};
+	}
+
+	makePlayerHand();
+	makeOpponentHand();
 
 
 	var $selectedCard = null;
 	var cardValue = null;
 
+	//Weird bug where computer has a whole lot of 0 values?
+var hidReplace = function (lane) {
+	if ( $('.' + lane).find('.hid').length > 0 ) {
+		$('.' + lane).find('.hid').html(lanes[lane]["staging"])
+		$('.' + lane).find('.hid').removeClass('hid')
+	}
+};
 
 var takeOppTurn = function () {
-	var theBackend = compTurn()
-	console.log(theBackend);
-	var pickLane = theBackend[0];
-	var pickCard = theBackend[1];
-	$('.opponenthand :first').find('p').addClass('hid')
-	$(".lanes").find('.' + pickLane).find('.opponent').append( $('.opponenthand :first-child') )
-}
+	//===========================
+	var pickLane = Math.ceil(Math.random()*3);
+	var pickCard = Math.ceil(Math.random()*computerHand.length) - 1;
+	hidReplace(pickLane);
+	forceCompTurn(pickLane, pickCard);
+	$('.opponenthand :first').find('p').addClass('hid').html('hid')
+	$('.' + pickLane ).find('.opponent').append( $('.opponenthand :first') )
+};
 
 
 
 
+//So playerTurn correctly unhids, but that is lacking from
+//takeOppTurn above
 
 
 //Click on a card to select it: 
@@ -51,57 +74,33 @@ var takeOppTurn = function () {
 		//I beleive this will always check the first div?
 
 		if ( $(this).parents().hasClass( "1" ) ) {
-			// if ( $(this).find("p").html() === "hid" ) {
-			// 	console.log($(this).find("hid").html())
-			// 	$(this).find("p").html(lanes[1]["staging"])
-			// $(".hid").removeClass("hid")
-			// }
-			if ( $(this).find('.hid').length ) {
-				$(this).find('.hid').html(lanes[1]["staging"])
-				$(this).find('.hid').removeClass('hid')
-			}
+			hidReplace(1)
 			myTurn(cardValue, 1)
 		}
 		if ( $(this).parents().hasClass("2") ) {
-	//The below needs to work for any 'hid' class in the whole lane
-	//either side
-			if ( $(this).find('.hid').length ) {
-				$(this).find('.hid').html(lanes[2]["staging"])
-				$(this).find('.hid').removeClass('hid')
-			}
+			hidReplace(2)
 			myTurn(cardValue, 2)
 		}
-		if ( $(this).parents().hasClass("3") ) {
-			if ( $(this).find('.hid').length ) {
-				$(this).find('.hid').html(lanes[3]["staging"])
-				$(this).find('.hid').removeClass('hid')
-			}
+		if ( $(this).parents().hasClass("3") > 0 ) {
+			hidReplace(3)
 			myTurn(cardValue, 3)
 		}
 		//The editing of the backend func
 		$selectedCard.find("p").addClass('hid');
 		$selectedCard.find('.hid').html('hid');
 		$(this).append($selectedCard);
-		// playerHand.shift();
 		takeOppTurn()
+		// console.log(lanes)
+		// console.log("playerhand is " + playerHand)
+		// console.log("other hand is " + computerHand)
 		if ( playerHand.length + computerHand.length <= 0 ) {
 			console.log("Game is over")
+			hidReplace(1);
+			hidReplace(2);
+			hidReplace(3);
 		}
 	})
-
-
-
-
-
-
-})
-
-
-
-
-
-
-
+});
 
 //Code from Jack to study
 
