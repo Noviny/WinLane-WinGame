@@ -4,7 +4,7 @@
 // The snipped objects will be placed elsewhere.
 // Probably used the xHand.slice(xHand.Search())
 // Try and find something more concise
-var playerHand = ["tac", 1, 2, 3, 4, 5];
+var playerHand = [1, 2, 3, 4, 5, "tac"];
 //var computerHand = [0, 1, 2, 3, 4, 5];
 
 
@@ -39,7 +39,6 @@ var lanes = {
 
 
 var myTurn = function (cardNum, lane) {
-	console.log(cardNum, + " " + lane)
 	if ( lanes[lane]["staging"] === null ) {
 		lanes[lane]["staging"] = cardNum
 		lanes[lane]["player"].push("hid")
@@ -52,7 +51,7 @@ var myTurn = function (cardNum, lane) {
 		lanes[lane]["staging"] = cardNum
 		lanes[lane]["player"].push("hid")
 	}
-	console.log(lanes[lane])
+	playerHand.splice( playerHand.indexOf(parseInt(cardNum)), 1 );
 }
 
 var calcLanes = function () {
@@ -75,7 +74,6 @@ var calcLanes = function () {
 			lanesum += lanes[i]["player"][i];
 		};
 	};
-	
 }
 
 
