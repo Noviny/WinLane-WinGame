@@ -90,9 +90,9 @@ var calcPlayerLanes = function () {
 //Before 2P game, we need to combine this into one function
 //It will need to take an extra variable for the player
 var compTurn = function () {
-	var pickLane = Math.round(Math.random()*3);
+	var pickLane = Math.ceil(Math.random()*3);
 	console.log ("picklane is " + pickLane);
-	var pickCard = Math.round(Math.random()*computerHand.length) - 1;
+	var pickCard = Math.ceil(Math.random()*computerHand.length) - 1;
 	console.log("pickCard is " + pickCard);
 
 	if ( lanes[pickLane]["staging"] === null ) {
@@ -110,7 +110,9 @@ var compTurn = function () {
 	computerHand.splice( computerHand.indexOf(parseInt(pickCard)), 1 );
 	return [pickLane, pickCard]
 }
-
+//So what is the above actually doing for us?
+//It's actually committing the value to 'staging'
+//It does not move a div, and apply 'hid' to it
 
 
 

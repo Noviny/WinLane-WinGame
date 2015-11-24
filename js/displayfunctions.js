@@ -8,14 +8,22 @@ $(document).ready (function () {
 	};
 
 
-
-
-	var unHide = function () {
-		
-	}
-
 	var $selectedCard = null;
 	var cardValue = null;
+
+
+var takeOppTurn = function () {
+	var theBackend = compTurn()
+	console.log(theBackend);
+	var pickLane = theBackend[0];
+	var pickCard = theBackend[1];
+	$('.opponenthand :first').find('p').addClass('hid')
+	$(".lanes").find('.' + pickLane).find('.opponent').append( $('.opponenthand :first-child') )
+}
+
+
+
+
 
 
 //Click on a card to select it: 
@@ -55,6 +63,8 @@ $(document).ready (function () {
 			myTurn(cardValue, 1)
 		}
 		if ( $(this).parents().hasClass("2") ) {
+	//The below needs to work for any 'hid' class in the whole lane
+	//either side
 			if ( $(this).find('.hid').length ) {
 				$(this).find('.hid').html(lanes[2]["staging"])
 				$(this).find('.hid').removeClass('hid')
@@ -73,7 +83,8 @@ $(document).ready (function () {
 		$selectedCard.find('.hid').html('hid');
 		$(this).append($selectedCard);
 		// playerHand.shift();
-		if ( playerHand.length /*+ computerHand.length*/ <= 0 ) {
+		takeOppTurn()
+		if ( playerHand.length + computerHand.length <= 0 ) {
 			console.log("Game is over")
 		}
 	})
