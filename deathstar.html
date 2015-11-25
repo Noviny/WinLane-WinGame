@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Base Version</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/deathstar.css">
+</head>
+<body>
+	<div class='blurb'>
+		<h1>Death Star</h1>
+		<p>The Death Star will be in range in six minutes. Choose where your fighters should focus their fire and hit two of the three weak points.</p>
+		<p>The Imperial forces are stronger, and their cards range from two to seven! They do not have any tactics to play though, and I hear a strafing run from the millenium falcon can turn the tides of a lane.</p>
+	</div>
+	<div class="opponenthand"></div>
+	<div class="lanes">
+		<div class="lane 1">
+			<div class="part opponent"><p>Opponent's cards</p></div>
+			<div class="part centre"><p>Lane 1</p></div>
+			<div class="part yours"><p>Your Cards</p></div>
+		</div>
+		<div class="wall lane"></div>
+		<div class="lane 2">
+			<div class="part opponent"><p>Opponent's cards</p></div>
+			<div class="part centre"><p>Lane 2</p></div>
+			<div class="part yours"><p>Your Cards</p></div>
+		</div>
+		<div class="wall lane"></div>
+		<div class="lane 3">
+			<div class="part opponent"><p>Opponent's cards</p></div>
+			<div class="part centre"><p>Lane 3</p></div>
+			<div class="part yours"><p>Your Cards</p></div>
+		</div>
+	</div>
+	<div class="movelog hidden">
+		<h2>The Game is Over!</h2>
+	</div>
+	<div class="playerhand"></div>
+	<script src="js/deathStarHands.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/displayfunctions.js"></script>
+</body>
+</html>

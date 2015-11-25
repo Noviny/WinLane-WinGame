@@ -1,0 +1,23 @@
+body {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.lane {
+	background-color: rgba(0, 0, 0, 0.2);
+	border: 4px solid rgba(0, 0, 0, 1);
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.wall {
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 0;
+}
+
+.part {
+	border: 2px solid rgba(0, 0, 0, 1);
+}
+
+.part.centre {
+	background-color: rgba(0, 0, 0, 0.8);
+}

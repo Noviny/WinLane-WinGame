@@ -51,10 +51,13 @@ var takeOppTurn = function () {
 	// $(".opponent").click( function () {
 	// 	takeOppTurn()
 	// })
+	// $(".yours").find(".hid")[0].hover(function () {
+	// 	$(this).html("CHECK")
+	// 	console.log("CHECK")
+	// 	(".yours").find(".hid")
+	// })
 
 	$(".yours").click( function () {
-		//Stop values being incorrectly lost from playerHand
-		// if (  )
 		if ( $selectedCard ) {
 			if ( $(this).parents().hasClass( "1" ) ) {
 			//Can we write this for one for loop?

@@ -5,36 +5,28 @@
 	border: 0;
 }
 
-body {
-	background-color: rgba(194,178,128, 0.8);
-}
-
 .lanes {
-	height: 27em;
+	height: 30rem;
 	margin: auto;
-	width: 95%;
+	width: 100%;
 	/*font-size: 0;*/
 }
 
 .lane {
 	display: inline-block;
 	float: left;
-	border: 2px solid rgb(72,63,34);
 	height: 100%;
 	width: 30%;
-	background-color: rgb(177,194,128);
 	overflow: hidden;
 	box-sizing: border-box;
 }
 
 .wall {
-	width: 4%;
-	background-color: rgb(72,63,34);
+	width: 5%;
 }
 
 
 .playerhand {
-	margin-top: 1em;
 	margin-left: 20%;
 	width: 40em;
 	height: 7em;
@@ -73,7 +65,6 @@ body {
 .part {
 	width: 100%;
 	height: 47%;
-	border: 1px solid rgb(72,63,34);
 	text-align: center;
 }
 
