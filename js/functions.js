@@ -1,9 +1,5 @@
-
-// These arrays represent the opening hands.
-// The will be manipulated by having 'cards' removed
-// The snipped objects will be placed elsewhere.
-// Probably used the xHand.slice(xHand.Search())
-// Try and find something more concise
+//===================================
+//Board setup variables
 var playerHand = [1, 2, 3, 4, 5, "tac"];
 var computerHand = [1, 2, 3, 4, 5, "tac"];
 
@@ -32,17 +28,8 @@ var lanes = {
 	},
 };
 
-// playerChoice
-// var playerChoice = function(choice) {
-// 	var choice = playerHand.splice(playerHand.indexOf(choice), (playerHand.indexOf(choice)));
-// 	console.log(playerHand)
-// 	return choice;
-// }
-
-
-// FUNCTION IS RANDOMLY ADDING UNDEFINED ON THE FIRST RUN. FIND AND SOLVE
-//Function is modifying the dom? Shouldn't be
 //Move dom actions to the displayFunction
+//Not set up for two player game (probably)
 var myTurn = function (cardNum, lane) {
 	pickLane = lane
 	pickCard = cardNum
@@ -75,13 +62,8 @@ var myTurn = function (cardNum, lane) {
 //============================
 //Opponent turn function
 //============================
-//Because lanes[var]["player"] was hard-coded,
-//we had to rewrite the whole function
-//Before 2P game, we need to combine this into one function
-//It will need to take an extra variable for the player
+//Not for 2P game
 var forceCompTurn = function (lane, card) {
-	//We're staging the wrong thing right now...
-	//Staging one less than?
 	var pickLane = parseInt(lane);
 	var pickCard = parseInt(card);
 	var oldVal = null;
@@ -105,22 +87,8 @@ var forceCompTurn = function (lane, card) {
 	}
 	var spliced = computerHand.splice(pickCard, 1 );
 }
-
-// Possibly just write a choice code that both use?
-// computerChoice
-
-
-// var randomNums = function () {
-// 	for (var i = 0; i < 50; i++) {
-// 		console.log(Math.ceil(Math.random()*computerHand.length) - 1)
-// 	};
-// }
-
-
-
 //========================================
 //Let us determine who wins the game
-
 var unhidAll = function () {
 	for (var i = 1; i <= 3; i++) {
 		var num = lanes[i]["staging"]
@@ -133,6 +101,14 @@ var unhidAll = function () {
 		}
 	};
 };
+
+var endInfo = {
+	1: {playerScore: 0, compScore: 0, winner: null},
+	2: {playerScore: 0, compScore: 0, winner: null},
+	3: {playerScore: 0, compScore: 0, winner: null},
+	playerLanes: 0,
+	compLanes: 0
+}
 
 var winLane = function (lane) {
 	var playerCards = lanes[lane]["player"]
@@ -158,50 +134,39 @@ var winLane = function (lane) {
 	};
 	// Applies the tac doubler below
 	if ( playerTac ) {
-		playerTotal += playerTotal
+		playerTotal += playerTotal;
 	};
 	if ( compTac ) {
-		compTotal += compTotal
+		compTotal += compTotal;
 	};
-	// console.log("player total is " + playerTotal)
-	// console.log("computer total is " + compTotal)
+	//Mods endInfo
+	endInfo[lane]["playerScore"] = playerTotal;
+	endInfo[lane]["compScore"] = compTotal;
 	if ( playerTotal > compTotal ) {
-		return "player";
+		endInfo[lane]["winner"] = "player";
+		endInfo["playerLanes"] += 1;
 	} else if ( compTotal > playerTotal ) {
+		endInfo[lane]["winner"] = "comp";
+		endInfo["compLanes"] += 1;
+	} else {
+		endInfo[lane]["winner"] = "draw";
+	}
+};
+
+//Cannot hit the dom, needs to draw a lot of the vars out
+//So we can modify the page in displayfunctions.js
+var winGame = function () {
+	unhidAll()
+	//Calculates the lane totals
+	for (var i = 1; i <= 3; i++) {
+		winLane(i);
+	};
+	//Determines overall game winner
+	if ( endInfo["playerLanes"] > endInfo["compLanes"] ) {
+		return "player";
+	} else if ( endInfo["playerLanes"] < endInfo["compLanes"] ) {
 		return "comp";
 	} else {
 		return "draw";
 	}
 };
-
-
-var winGame = function () {
-	unhidAll()
-	playerLaneWins = 0
-	compLaneWins = 0
-	for (var i = 1; i <= 3; i++) {
-		var laneWinner = winLane([i]);
-		console.log(laneWinner)
-		if ( laneWinner === "player" ) {
-			playerLaneWins += 1
-		}
-		if ( laneWinner === "comp") {
-			compLaneWins += 1
-		}
-		console.log( "The lane was won by " + laneWinner )
-	};
-	if ( playerLaneWins > compLaneWins ) {
-		console.log( "Player has won the game");
-	} else if ( playerLaneWins < compLaneWins ) {
-		console.log( "The computer has won the game ");
-	} else {
-		console.log("The game was a draw")
-	}
-};
-
-
-
-
-
-
-
