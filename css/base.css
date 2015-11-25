@@ -13,10 +13,12 @@ body {
 	height: 27em;
 	margin: auto;
 	width: 95%;
+	/*font-size: 0;*/
 }
 
 .lane {
 	display: inline-block;
+	float: left;
 	border: 2px solid rgb(72,63,34);
 	height: 100%;
 	width: 30%;
@@ -27,7 +29,7 @@ body {
 
 .wall {
 	width: 4%;
-	background-color: #663300;
+	background-color: rgb(72,63,34);
 }
 
 
@@ -39,6 +41,7 @@ body {
 	background: grey;
 	bottom: 0;
 	border-radius: 10px;
+	padding: 0 10px;
 }
 
 .opponenthand {
@@ -47,13 +50,17 @@ body {
 	height: 7em;
 	background: grey;
 	border-radius: 10px;
-	margin-bottom: 1em;
+	padding: 0 10px;
 }
 
 .card {
 	display: inline-block;
 	height: 5em;
-	width: 5em;
+	width: -webkit-calc( 100% / 6 );
+	width: -moz-calc( 100% / 6 );
+	width: -ms-calc( 100% / 6 );
+	width: -o-calc( 100% / 6 );
+	width: calc( 100% / 6 );
 	border: 3px solid black;
 	border-radius: 7px;
 	text-align: center;
@@ -69,11 +76,38 @@ body {
 	border: 1px solid rgb(72,63,34);
 	text-align: center;
 }
+
 .part.centre {
 	height: 6%;
 	background-color: rgba(255, 0, 0, 0.5);
 }
 
+.part p :not(.card) {
+	color: orange;
+}
+
 .lane .card {
 	width: 3em;
+}
+
+.playerhand .card :hover {
+	font-size: 200%;
+	cursor: pointer;
+}
+
+.opponenthand .card {
+	background-color: pink;
+}
+
+.yours .card :hover {
+	font-size: 200%;
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
+}
+
+.movelog {
+	text-align: center;
 }

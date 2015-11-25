@@ -48,42 +48,48 @@ var takeOppTurn = function () {
 		}
 	});
 
-	$(".opponent").click( function () {
-		takeOppTurn()
-	})
+	// $(".opponent").click( function () {
+	// 	takeOppTurn()
+	// })
 
 	$(".yours").click( function () {
 		//Stop values being incorrectly lost from playerHand
 		// if (  )
-		if ( $(this).parents().hasClass( "1" ) ) {
-		//Can we write this for one for loop?
-		//We should write this for one for loop, not three ifs
-			hidReplace(1)
-			myTurn(cardValue, 1)
-		}
-		if ( $(this).parents().hasClass("2") ) {
-			hidReplace(2)
-			myTurn(cardValue, 2)
-		}
-		if ( $(this).parents().hasClass("3") > 0 ) {
-			hidReplace(3)
-			myTurn(cardValue, 3)
-		}
-		$selectedCard.find("p").addClass('hid');
-		$selectedCard.find('.hid').html('?');
-		$(this).append($selectedCard);
-		takeOppTurn()
-		//EndofGame Function
-		//Does not modify the board at all to note all this
-		if ( playerHand.length + computerHand.length <= 0 ) {
-			console.log("Game is over")
-			for (var i = 1; i <= 3; i++) {
-				hidReplace(i)
-			};
-			var theWinner = winGame();
-			var endLog = "<p>the winner of lane 1 was " + endInfo[1]["winner"] + "</p><p>the winner of lane 2 was " +  endInfo[2]["winner"] + "</p><p>the winner of lane 3 was " +  endInfo[3]["winner"] + "</p><p>The winner of the game was " + theWinner + ".</p>"
-			var $endScrawl = $(endLog);
-			$(".movelog").append($endScrawl);
+		if ( $selectedCard ) {
+			if ( $(this).parents().hasClass( "1" ) ) {
+			//Can we write this for one for loop?
+			//We should write this for one for loop, not three ifs
+				hidReplace(1)
+				myTurn(cardValue, 1)
+			}
+			if ( $(this).parents().hasClass("2") ) {
+				hidReplace(2)
+				myTurn(cardValue, 2)
+			}
+			if ( $(this).parents().hasClass("3") > 0 ) {
+				hidReplace(3)
+				myTurn(cardValue, 3)
+			}
+			$selectedCard.find("p").addClass('hid');
+			$selectedCard.find('.hid').html('?');
+			$(this).append($selectedCard);
+			$selectedCard = null;
+			takeOppTurn()
+			//EndofGame Function
+			//Does not modify the board at all to note all this
+			if ( playerHand.length + computerHand.length <= 0 ) {
+				console.log("Game is over")
+				for (var i = 1; i <= 3; i++) {
+					hidReplace(i)
+				};
+				var theWinner = winGame();
+				var endLog = "<p>the winner of lane 1 was " + endInfo[1]["winner"] + "</p><p>the winner of lane 2 was " +  endInfo[2]["winner"] + "</p><p>the winner of lane 3 was " +  endInfo[3]["winner"] + "</p><p>The winner of the game was " + theWinner + ".</p>"
+				var $endScrawl = $(endLog);
+				$(".movelog").removeClass("hidden");
+				$(".playerhand").addClass("hidden");
+				$(".opponenthand").addClass("hidden");
+				$(".movelog").append($endScrawl);
+			}
 		}
 	})
 });
