@@ -103,6 +103,7 @@ $(".opponent").click( function () {
 			hidReplace(1);
 			hidReplace(2);
 			hidReplace(3);
+			winGame();
 		}
 	})
 });

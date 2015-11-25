@@ -124,7 +124,6 @@ var forceCompTurn = function (lane, card) {
 var unhidAll = function () {
 	for (var i = 1; i <= 3; i++) {
 		var num = lanes[i]["staging"]
-		console.log(num)
 		if ( lanes[i]["player"].indexOf("hid") >= 0 ) {
 			var oldHid = lanes[i]["player"].indexOf("hid")
 			lanes[i]["player"][oldHid] = num
@@ -136,12 +135,70 @@ var unhidAll = function () {
 };
 
 var winLane = function (lane) {
-
-}
+	var playerCards = lanes[lane]["player"]
+	var compCards = lanes[lane]["computer"]
+	var playerTotal = 0
+	var compTotal = 0
+	var playerTac = null;
+	var compTac = null;
+	//Adds up the array, storing tac if it is found
+	for (var i = 0; i < playerCards.length; i++) {
+		if ( playerCards[i] === "tac" ) {
+			playerTac = true;
+		} else if ( parseInt(playerCards[i]) === parseInt(playerCards[i]) ) {
+			playerTotal += parseInt(playerCards[i]);
+		};
+	};
+	for (var i = 0; i < compCards.length; i++) {
+		if ( compCards[i] === "tac" ) {
+			compTac = true;
+		} else if ( parseInt(compCards[i]) === parseInt(compCards[i]) ) {
+			compTotal += parseInt(compCards[i]);
+		};
+	};
+	// Applies the tac doubler below
+	if ( playerTac ) {
+		playerTotal += playerTotal
+	};
+	if ( compTac ) {
+		compTotal += compTotal
+	};
+	// console.log("player total is " + playerTotal)
+	// console.log("computer total is " + compTotal)
+	if ( playerTotal > compTotal ) {
+		return "player";
+	} else if ( compTotal > playerTotal ) {
+		return "comp";
+	} else {
+		return "draw";
+	}
+};
 
 
 var winGame = function () {
 	unhidAll()
+	playerLaneWins = 0
+	compLaneWins = 0
+	for (var i = 1; i <= 3; i++) {
+		var laneWinner = winLane([i]);
+		console.log(laneWinner)
+		if ( laneWinner === "player" ) {
+			playerLaneWins += 1
+		}
+		if ( laneWinner === "comp") {
+			compLaneWins += 1
+		}
+		console.log( "The lane was won by " + laneWinner )
+	};
+	console.log(playerLaneWins)
+	console.log(compLaneWins)
+	if ( playerLaneWins > compLaneWins ) {
+		console.log( "Player has won the game");
+	} else if ( playerLaneWins < compLaneWins ) {
+		console.log( "The computer has won the game ");
+	} else {
+		"The game was a draw"
+	}
 };
 
 
