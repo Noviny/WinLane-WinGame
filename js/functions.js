@@ -190,14 +190,12 @@ var winGame = function () {
 		}
 		console.log( "The lane was won by " + laneWinner )
 	};
-	console.log(playerLaneWins)
-	console.log(compLaneWins)
 	if ( playerLaneWins > compLaneWins ) {
 		console.log( "Player has won the game");
 	} else if ( playerLaneWins < compLaneWins ) {
 		console.log( "The computer has won the game ");
 	} else {
-		"The game was a draw"
+		console.log("The game was a draw")
 	}
 };
 
