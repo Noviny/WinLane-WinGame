@@ -63,7 +63,7 @@ var takeOppTurn = function () {
 
 	$(".yours").click( function () {
 		if ( $selectedCard ) {
-			for (var i = 1; i < 3; i++) {
+			for (var i = 1; i <= 3; i++) {
 				if ( $(this).parents().hasClass( i ) ) {
 					hidReplace(i)
 				myTurn(cardValue, i)
