@@ -19,3 +19,7 @@ body {
 .part.centre {
 	background-color: rgba(0, 0, 0, 0.8);
 }
+
+.part.opponent {
+	background-color: rgba(0, 0, 0, 0.6);
+}

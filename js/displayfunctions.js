@@ -70,11 +70,10 @@ var takeOppTurn = function () {
 				}
 			};
 			$selectedCard.find("p").addClass('hid');
+			$selectedCard.removeClass("selected");
 			$(this).append($selectedCard);
 			$selectedCard = null;
 			takeOppTurn()
-			//EndofGame Function
-			//Does not modify the board at all to note all this
 			if ( playerHand.length + computerHand.length <= 0 ) {
 				console.log("Game is over")
 				for (var i = 1; i <= 3; i++) {
