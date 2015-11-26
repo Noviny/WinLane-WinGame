@@ -4,6 +4,9 @@ This is a game being built by Ben 'Noviny' Conolly. The game can easily be playe
 
 Currently the game is designed for two players. The design notes document will detail some of the possible design directions, as well as easy ways to mod the game for more players.
 
+##Link to live game
+[Play win-lane, win-game](http://noviny.github.io/WinLane-WinGame/)
+
 ## Current Version:
 This version includes three different levels to play around with, against a computer opponent. it is star wars skinned.
 
