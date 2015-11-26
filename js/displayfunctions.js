@@ -40,14 +40,18 @@ var takeOppTurn = function () {
 //Click on a card to select it: 
 	$(".card").click( function () {
 		if ($(this).parent().attr("class") === "playerhand" ) {
+			if ( $selectedCard != null ) {
+				$selectedCard.removeClass("selected");
+			}
 			$selectedCard = $(this);
 			cardValue = $(this).find("p").html()
 			//Shows us what card is selected
 			//Does not ungreen if unselected
-			$(this).css({color: "green"});
+			$(this).addClass("selected");
 		}
 	});
 
+//This function forces an opponent turn. Beware!
 	// $(".opponent").click( function () {
 	// 	takeOppTurn()
 	// })
@@ -59,22 +63,13 @@ var takeOppTurn = function () {
 
 	$(".yours").click( function () {
 		if ( $selectedCard ) {
-			if ( $(this).parents().hasClass( "1" ) ) {
-			//Can we write this for one for loop?
-			//We should write this for one for loop, not three ifs
-				hidReplace(1)
-				myTurn(cardValue, 1)
-			}
-			if ( $(this).parents().hasClass("2") ) {
-				hidReplace(2)
-				myTurn(cardValue, 2)
-			}
-			if ( $(this).parents().hasClass("3") > 0 ) {
-				hidReplace(3)
-				myTurn(cardValue, 3)
-			}
+			for (var i = 1; i < 3; i++) {
+				if ( $(this).parents().hasClass( i ) ) {
+					hidReplace(i)
+				myTurn(cardValue, i)
+				}
+			};
 			$selectedCard.find("p").addClass('hid');
-			$selectedCard.find('.hid').html('?');
 			$(this).append($selectedCard);
 			$selectedCard = null;
 			takeOppTurn()
@@ -96,3 +91,6 @@ var takeOppTurn = function () {
 		}
 	})
 });
+
+
+

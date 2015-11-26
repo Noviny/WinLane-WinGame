@@ -1,12 +1,10 @@
 body {
-	background-color: rgba(250, 203, 132, 1);
+	background-color: rgba(250, 203, 132, 0.6);
 }
 
 .lane {
 	background-color: rgba(248, 174, 74, 0.4);
 	border: 4px solid rgba(171, 99, 40, 0.6);
-	border-top: 0;
-	border-bottom: 0;
 }
 
 .wall {
@@ -18,6 +16,6 @@ body {
 	border: 2px solid rgba(171, 99, 40, 0.6);
 }
 
-.centre {
-	
+.part.opponent {
+	background-color: rgba(248, 174, 74, 0.6);
 }
