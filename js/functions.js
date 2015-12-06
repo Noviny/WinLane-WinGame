@@ -23,7 +23,14 @@ var lanes = {
 	},
 };
 
-//Move dom actions to the displayFunction
+var things = {
+	fn: function() { return true }
+}
+
+things.fn()
+var what = 'fn';
+things[what]()
+
 //Not set up for two player game (probably)
 var myTurn = function (cardNum, lane) {
 	pickLane = lane
@@ -34,18 +41,15 @@ var myTurn = function (cardNum, lane) {
 	} else {
 		//replaces hid and stages next num
 		var oldVal = lanes[lane]["staging"]
-		//Only copes with player is hid, not opponent
 		var oldHid = lanes[lane]["player"].indexOf("hid")
 		if ( lanes[pickLane]["computer"].indexOf("hid") >= 0 ) {
 			var oldHid = lanes[pickLane]["computer"].indexOf("hid")
-		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
 			lanes[pickLane]["computer"][oldHid] = oldVal;
 			lanes[pickLane]["staging"] = pickCard
 			lanes[pickLane]["player"].push("hid")
 		} 
 		else if ( lanes[pickLane]["player"].indexOf("hid") >= 0 ) {
 			var oldHid = lanes[pickLane]["player"].indexOf("hid")
-		//Right here is where it fucks up. Needs to hunt for if 'hid' is in computer or player
 			lanes[pickLane]["player"][oldHid] = oldVal;
 			lanes[pickLane]["staging"] = pickCard
 			lanes[pickLane]["player"].push("hid")
@@ -84,6 +88,7 @@ var forceCompTurn = function (lane, card) {
 }
 //========================================
 //Let us determine who wins the game
+//========================================
 var unhidAll = function () {
 	for (var i = 1; i <= 3; i++) {
 		var num = lanes[i]["staging"]
@@ -134,7 +139,7 @@ var winLane = function (lane) {
 	if ( compTac ) {
 		compTotal += compTotal;
 	};
-	//Mods endInfo
+	//Modifies endInfo
 	endInfo[lane]["playerScore"] = playerTotal;
 	endInfo[lane]["compScore"] = compTotal;
 	if ( playerTotal > compTotal ) {
@@ -148,8 +153,6 @@ var winLane = function (lane) {
 	}
 };
 
-//Cannot hit the dom, needs to draw a lot of the vars out
-//So we can modify the page in displayfunctions.js
 var winGame = function () {
 	unhidAll()
 	//Calculates the lane totals
